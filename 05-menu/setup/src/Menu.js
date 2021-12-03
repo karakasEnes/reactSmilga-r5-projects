@@ -1,7 +1,15 @@
 import React from 'react';
 
-const Menu = () => {
-  return <h2>menu component</h2>;
+const Menu = ({ name, handleMenuClick }) => {
+  return (
+    <button
+      type='button'
+      className='filter-btn'
+      onClick={() => handleMenuClick(name)}
+    >
+      {name}
+    </button>
+  );
 };
 
 export default Menu;
