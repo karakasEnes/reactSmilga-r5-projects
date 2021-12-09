@@ -1,7 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
-const Alert = () => {
-  return <h2>alert component</h2>
-}
+const Alert = ({ setIsAlert }) => {
+  useEffect(() => {
+    console.log('alert invoked');
+    const timeoutId = setTimeout(() => {
+      setIsAlert(false);
+    }, 1000);
 
-export default Alert
+    return () => {
+      clearInterval(timeoutId);
+    };
+  }, []);
+  return <h2>alert component</h2>;
+};
+
+export default Alert;
