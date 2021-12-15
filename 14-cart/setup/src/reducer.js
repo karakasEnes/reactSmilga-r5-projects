@@ -1,5 +1,11 @@
 const reducer = (state, action) => {
-  return state;
+  switch (action.type) {
+    case 'CLEAR_CARTS':
+      return { ...state, cart: [] };
+
+    default:
+      return state;
+  }
 };
 
 export default reducer;
