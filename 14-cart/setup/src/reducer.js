@@ -9,31 +9,21 @@ const reducer = (state, action) => {
         cart: state.cart.filter((cart) => cart.id !== action.payload),
       };
 
-    case 'INCREASE_AMOUNT':
+    case 'INCREASE_DECREASE_AMOUNT':
       const tempCart = state.cart.map((cartItem) => {
-        if (cartItem.id === action.payload) {
-          return { ...cartItem, amount: cartItem.amount + 1 };
+        if (cartItem.id === action.payload.id) {
+          if (action.payload.method === 'increase') {
+            return { ...cartItem, amount: cartItem.amount + 1 };
+          }
+
+          if (action.payload.method === 'decrease') {
+            return { ...cartItem, amount: cartItem.amount - 1 };
+          }
         }
         return cartItem;
       });
 
-      return {
-        ...state,
-        cart: tempCart,
-      };
-
-    case 'DECREASE_AMOUNT':
-      const tempCart2 = state.cart.map((cartItem) => {
-        if (cartItem.id === action.payload) {
-          return { ...cartItem, amount: cartItem.amount - 1 };
-        }
-        return cartItem;
-      });
-
-      return {
-        ...state,
-        cart: tempCart2,
-      };
+      return { ...state, cart: tempCart };
 
     case 'CALCULATE_TOTAL_AMOUNT':
       //   if (state.cart === []) return state;
@@ -56,7 +46,8 @@ const reducer = (state, action) => {
       return { ...state, loading: false, cart: action.payload };
 
     default:
-      return state;
+      //   return state;
+      throw new Error('No matching Action found, please try it again');
   }
 };
 
